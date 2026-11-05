@@ -1,0 +1,107 @@
+{
+  "examples": [
+    {
+      "scenario": "Payment Success",
+      "description": "Payment processed successfully with transaction confirmation",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:8081/api/payment/process",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer mock-api-key-12345"
+        },
+        "body": {
+          "paymentToken": "tok_visa_4242_success",
+          "amount": 15999,
+          "currency": "USD",
+          "customerRef": "CUST-2024-001",
+          "orderId": "ORD-20240115-7891",
+          "description": "E-commerce order payment"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "success": true,
+          "transactionId": "txn_1OkPQ82eZvKYlo2C8k7j9Xyz",
+          "status": "completed",
+          "amount": 15999,
+          "currency": "USD",
+          "paymentMethod": "card",
+          "last4": "4242",
+          "timestamp": "2024-01-15T10:23:45Z",
+          "message": "Payment processed successfully"
+        }
+      }
+    },
+    {
+      "scenario": "Payment Declined",
+      "description": "Payment declined by payment gateway due to insufficient funds",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:8081/api/payment/process",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer mock-api-key-12345"
+        },
+        "body": {
+          "paymentToken": "tok_visa_4000_declined",
+          "amount": 25000,
+          "currency": "USD",
+          "customerRef": "CUST-2024-002",
+          "orderId": "ORD-20240115-7892",
+          "description": "E-commerce order payment"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "success": false,
+          "transactionId": "txn_1OkPR52eZvKYlo2C9m8k0Abc",
+          "status": "declined",
+          "amount": 25000,
+          "currency": "USD",
+          "paymentMethod": "card",
+          "last4": "4000",
+          "declineCode": "insufficient_funds",
+          "timestamp": "2024-01-15T10:25:12Z",
+          "message": "Payment declined: Insufficient funds"
+        }
+      }
+    },
+    {
+      "scenario": "Payment Gateway Timeout/Error",
+      "description": "Payment gateway service unavailable or timeout error",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:8081/api/payment/process",
+        "headers": {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer mock-api-key-12345"
+        },
+        "body": {
+          "paymentToken": "tok_visa_4242_timeout",
+          "amount": 8999,
+          "currency": "USD",
+          "customerRef": "CUST-2024-003",
+          "orderId": "ORD-20240115-7893",
+          "description": "E-commerce order payment"
+        }
+      },
+      "response": {
+        "status": 503,
+        "body": {
+          "success": false,
+          "error": {
+            "code": "service_unavailable",
+            "message": "Payment gateway temporarily unavailable. Please retry.",
+            "type": "gateway_error",
+            "retryable": true
+          },
+          "timestamp": "2024-01-15T10:27:30Z"
+        }
+      },
+      "notes": "This scenario simulates a service failure that should trigger incident handling in Camunda. The workflow should be designed to handle retries after the service is restored."
+    }
+  ]
+}

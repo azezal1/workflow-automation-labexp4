@@ -1,0 +1,83 @@
+{
+  "examples": [
+    {
+      "name": "Good Credit Applicant",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:8081/api/credit/assess",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "applicantId": "APP-2024-001",
+          "applicantName": "John Smith",
+          "monthlyIncome": 5000,
+          "requestedAmount": 25000,
+          "employmentStatus": "FULL_TIME"
+        }
+      },
+      "response": {
+        "statusCode": 200,
+        "body": {
+          "applicantId": "APP-2024-001",
+          "creditScore": 780,
+          "creditStatus": "Good",
+          "assessmentDate": "2024-01-15T10:30:00Z",
+          "recommendation": "APPROVE"
+        }
+      }
+    },
+    {
+      "name": "Fair Credit Applicant",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:8081/api/credit/assess",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "applicantId": "APP-2024-002",
+          "applicantName": "Jane Doe",
+          "monthlyIncome": 3200,
+          "requestedAmount": 18000,
+          "employmentStatus": "FULL_TIME"
+        }
+      },
+      "response": {
+        "statusCode": 200,
+        "body": {
+          "applicantId": "APP-2024-002",
+          "creditScore": 620,
+          "creditStatus": "Fair",
+          "assessmentDate": "2024-01-15T11:00:00Z",
+          "recommendation": "MANUAL_REVIEW"
+        }
+      }
+    },
+    {
+      "name": "Poor Credit / Service Error",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:8081/api/credit/assess",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "applicantId": "APP-2024-003",
+          "applicantName": "Bob Johnson",
+          "monthlyIncome": 2800,
+          "requestedAmount": 35000,
+          "employmentStatus": "PART_TIME"
+        }
+      },
+      "response": {
+        "statusCode": 503,
+        "body": {
+          "error": "Service Unavailable",
+          "message": "Credit assessment service temporarily unavailable. Please retry.",
+          "timestamp": "2024-01-15T11:30:00Z"
+        }
+      }
+    }
+  ]
+}

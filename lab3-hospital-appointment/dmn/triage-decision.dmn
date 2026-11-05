@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_triage" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.25.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.5.0">
+  <decision id="triage-decision" name="Patient Triage Classification">
+    <decisionTable id="DecisionTable_1" hitPolicy="FIRST">
+      <input id="Input_1" label="Urgency Indicators">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>urgencyIndicators</text>
+        </inputExpression>
+      </input>
+      <input id="Input_2" label="Symptoms Description">
+        <inputExpression id="InputExpression_2" typeRef="string">
+          <text>symptomsDescription</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Triage Category" name="triageCategory" typeRef="string" />
+      <rule id="DecisionRule_1">
+        <inputEntry id="UnaryTests_1">
+          <text>contains(urgencyIndicators, "HIGH")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1">
+          <text>"UrgentAssessment"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2">
+        <inputEntry id="UnaryTests_3">
+          <text>contains(urgencyIndicators, "CRITICAL")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_4">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2">
+          <text>"UrgentAssessment"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_3">
+        <inputEntry id="UnaryTests_5">
+          <text>contains(urgencyIndicators, "EMERGENCY")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_6">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_3">
+          <text>"UrgentAssessment"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_4">
+        <inputEntry id="UnaryTests_7">
+          <text>contains(urgencyIndicators, "MEDIUM")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_8">
+          <text>contains(symptomsDescription, "chest")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_4">
+          <text>"UrgentAssessment"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_5">
+        <inputEntry id="UnaryTests_9">
+          <text>contains(urgencyIndicators, "MEDIUM")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_5">
+          <text>"PriorityReview"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_6">
+        <inputEntry id="UnaryTests_11">
+          <text>contains(urgencyIndicators, "LOW")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12">
+          <text>contains(symptomsDescription, "chronic")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_6">
+          <text>"PriorityReview"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_7">
+        <inputEntry id="UnaryTests_13">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_7">
+          <text>"Routine"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="triage-decision">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

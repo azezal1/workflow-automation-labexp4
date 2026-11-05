@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_OrderPriority" name="Order Priority Decision" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.0.0">
+  <decision id="order-priority" name="Order Priority">
+    <decisionTable id="DecisionTable_OrderPriority" hitPolicy="FIRST">
+      <input id="Input_OrderTotal" label="Order Total" biodi:width="192">
+        <inputExpression id="InputExpression_OrderTotal" typeRef="double">
+          <text>orderTotal</text>
+        </inputExpression>
+      </input>
+      <input id="Input_CustomerCategory" label="Customer Category" biodi:width="192">
+        <inputExpression id="InputExpression_CustomerCategory" typeRef="string">
+          <text>customerCategory</text>
+        </inputExpression>
+      </input>
+      <input id="Input_DeliveryPreference" label="Delivery Preference" biodi:width="192">
+        <inputExpression id="InputExpression_DeliveryPreference" typeRef="string">
+          <text>deliveryPreference</text>
+        </inputExpression>
+      </input>
+      <output id="Output_OrderPriority" label="Order Priority" name="orderPriority" typeRef="string" biodi:width="192" />
+      <rule id="DecisionRule_1">
+        <inputEntry id="UnaryTests_1">
+          <text>&gt;1000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_2">
+          <text>"Premium"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_3">
+          <text>"Express"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1">
+          <text>"Critical"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2">
+        <inputEntry id="UnaryTests_4">
+          <text>&gt;1000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_5">
+          <text>"Premium"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_6">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2">
+          <text>"High"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_3">
+        <inputEntry id="UnaryTests_7">
+          <text>&gt;1000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_9">
+          <text>"Express"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_3">
+          <text>"High"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_4">
+        <inputEntry id="UnaryTests_10">
+          <text>&gt;500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11">
+          <text>"Premium"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_4">
+          <text>"High"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_5">
+        <inputEntry id="UnaryTests_13">
+          <text>&gt;500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15">
+          <text>"Express"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_5">
+          <text>"Medium"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_6">
+        <inputEntry id="UnaryTests_16">
+          <text>&gt;500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_6">
+          <text>"Standard"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_7">
+        <inputEntry id="UnaryTests_19">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_20">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_21">
+          <text>"Express"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_7">
+          <text>"Medium"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_8">
+        <inputEntry id="UnaryTests_22">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_23">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_24">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_8">
+          <text>"Standard"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="order-priority">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

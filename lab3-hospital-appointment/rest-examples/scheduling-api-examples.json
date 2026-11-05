@@ -1,0 +1,144 @@
+{
+  "examples": [
+    {
+      "scenario": "Slots Available - Routine Appointment",
+      "description": "Patient requests a routine appointment and suitable slots are available",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:8083/api/scheduling/check-availability",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "patientRef": "PAT-2024-001",
+          "appointmentPreference": "General Consultation",
+          "triageCategory": "Routine",
+          "preferredDate": "2024-06-15"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "available": true,
+          "slots": [
+            {
+              "slotId": "SLOT-2024-06-15-001",
+              "dateTime": "2024-06-15T09:00:00",
+              "department": "General Medicine",
+              "physician": "Dr. Sarah Johnson"
+            },
+            {
+              "slotId": "SLOT-2024-06-15-002",
+              "dateTime": "2024-06-15T14:30:00",
+              "department": "General Medicine",
+              "physician": "Dr. Michael Chen"
+            },
+            {
+              "slotId": "SLOT-2024-06-16-001",
+              "dateTime": "2024-06-16T10:00:00",
+              "department": "General Medicine",
+              "physician": "Dr. Sarah Johnson"
+            }
+          ],
+          "message": "Multiple appointment slots available"
+        }
+      }
+    },
+    {
+      "scenario": "Slots Available - Priority Review",
+      "description": "Patient requires priority review and urgent slots are available",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:8083/api/scheduling/check-availability",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "patientRef": "PAT-2024-002",
+          "appointmentPreference": "Specialist Consultation",
+          "triageCategory": "Priority Review",
+          "preferredDate": "2024-06-14"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "available": true,
+          "slots": [
+            {
+              "slotId": "SLOT-2024-06-14-URGENT-001",
+              "dateTime": "2024-06-14T11:00:00",
+              "department": "Cardiology",
+              "physician": "Dr. Emily Roberts",
+              "priority": "High"
+            },
+            {
+              "slotId": "SLOT-2024-06-14-URGENT-002",
+              "dateTime": "2024-06-14T15:00:00",
+              "department": "Cardiology",
+              "physician": "Dr. David Martinez",
+              "priority": "High"
+            }
+          ],
+          "message": "Priority slots reserved for urgent cases"
+        }
+      }
+    },
+    {
+      "scenario": "No Slots Available / Scheduling API Error",
+      "description": "No appointment slots available or scheduling service encounters an error",
+      "request": {
+        "method": "POST",
+        "url": "http://localhost:8083/api/scheduling/check-availability",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "patientRef": "PAT-2024-003",
+          "appointmentPreference": "General Consultation",
+          "triageCategory": "Routine",
+          "preferredDate": "2024-06-20"
+        }
+      },
+      "response_no_slots": {
+        "status": 200,
+        "body": {
+          "available": false,
+          "slots": [],
+          "message": "No available slots for the requested date and department",
+          "suggestedAlternatives": [
+            {
+              "dateTime": "2024-06-22T09:00:00",
+              "department": "General Medicine"
+            }
+          ]
+        }
+      },
+      "response_service_error": {
+        "status": 503,
+        "body": {
+          "error": "Service Unavailable",
+          "message": "Hospital scheduling system is temporarily unavailable. Please try again later.",
+          "timestamp": "2024-06-13T10:30:00Z"
+        }
+      },
+      "response_timeout": {
+        "status": 504,
+        "body": {
+          "error": "Gateway Timeout",
+          "message": "Scheduling API did not respond within the expected time frame"
+        }
+      }
+    }
+  ],
+  "mock_api_notes": {
+    "base_url": "http://localhost:8083",
+    "endpoints": {
+      "check_availability": "/api/scheduling/check-availability",
+      "book_appointment": "/api/scheduling/book",
+      "cancel_appointment": "/api/scheduling/cancel"
+    },
+    "testing_instructions": "Use synthetic patient data only. The mock API can be configured to return different responses by changing the patientRef prefix: PAT-SUCCESS-* for available slots, PAT-NOSLOTS-* for no availability, PAT-ERROR-* to trigger service errors.",
+    "authentication": "Not required for educational mock service"
+  }
+}
