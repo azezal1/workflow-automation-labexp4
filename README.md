@@ -655,11 +655,10 @@ This project is created for educational purposes as part of the PBJ-2 Practical 
 
 ## 👤 Author
 
-**[Your Name]**  
-Student ID: [Your ID]  
+**[Garv kaushik]**  
+Student ID: [RA2411003010096]  
 Course: PBJ-2 Practical Assignment  
-Institution: [Your Institution]
+Institution: [SRMIST]
 
 ---
 
-*Last Updated: January 2024*
