@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_loan_decision" name="Loan Approval Decisions" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.14.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0">
+  <decision id="loan-decision" name="Loan Decision">
+    <decisionTable id="DecisionTable_loan_decision" hitPolicy="FIRST">
+      <input id="Input_1" label="Credit Score" biodi:width="150">
+        <inputExpression id="InputExpression_1" typeRef="integer">
+          <text>creditScore</text>
+        </inputExpression>
+      </input>
+      <input id="Input_2" label="Monthly Income" biodi:width="150">
+        <inputExpression id="InputExpression_2" typeRef="double">
+          <text>monthlyIncome</text>
+        </inputExpression>
+      </input>
+      <input id="Input_3" label="Requested Amount" biodi:width="150">
+        <inputExpression id="InputExpression_3" typeRef="double">
+          <text>requestedAmount</text>
+        </inputExpression>
+      </input>
+      <input id="Input_4" label="Credit Status" biodi:width="150">
+        <inputExpression id="InputExpression_4" typeRef="string">
+          <text>creditStatus</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Loan Decision" name="loanDecision" typeRef="string" biodi:width="150" />
+      <rule id="DecisionRule_1">
+        <inputEntry id="UnaryTests_1">
+          <text>&gt;=750</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_3">
+          <text>&lt;=200000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_4">
+          <text>"Good"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1">
+          <text>"Approved"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_2">
+        <inputEntry id="UnaryTests_5">
+          <text>[600..750)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_6">
+          <text>&gt;=3000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_7">
+          <text>&lt;=150000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_8">
+          <text>"Good"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_2">
+          <text>"Approved"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_3">
+        <inputEntry id="UnaryTests_9">
+          <text>[600..750)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10">
+          <text>&gt;=3000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11">
+          <text>&lt;=150000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12">
+          <text>"Fair"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_3">
+          <text>"Manual Review"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_4">
+        <inputEntry id="UnaryTests_13">
+          <text>[500..600)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_4">
+          <text>"Manual Review"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_5">
+        <inputEntry id="UnaryTests_17">
+          <text>&lt;500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_20">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_5">
+          <text>"Rejected"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_6">
+        <inputEntry id="UnaryTests_21">
+          <text>&gt;=750</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_22">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_23">
+          <text>&gt;200000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_24">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_6">
+          <text>"Manual Review"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_7">
+        <inputEntry id="UnaryTests_25">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_26">
+          <text>&lt;1500</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_27">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_28">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_7">
+          <text>"Rejected"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_8">
+        <inputEntry id="UnaryTests_29">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_30">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_31">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_32">
+          <text>"Poor"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_8">
+          <text>"Rejected"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="loan-decision">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
