@@ -63,3 +63,44 @@ For testing these processes, use the variables from `TEST_DATA_COPY_PASTE.md` - 
 ## Status: ✅ ALL FIXED
 
 All 3 BPMN files are now ready to deploy and run in Camunda 8 without any incidents or errors.
+
+## DMN Decision Tables Connected
+
+All BPMN files are now properly connected to their DMN decision tables:
+
+### Lab 1 - Loan Approval
+- **BPMN Task**: "Evaluate Application (DMN)"
+- **Decision ID**: `loan-decision`
+- **DMN File**: `loan-decision.dmn` (in root directory)
+- **Inputs**: creditScore, monthlyIncome, requestedAmount, creditStatus
+- **Output**: loanDecision ("Approved", "Rejected", "Manual Review")
+
+### Lab 2 - E-Commerce Order
+- **BPMN Task**: "Calculate Order Priority (DMN)"
+- **Decision ID**: `order-priority-decision`
+- **DMN File**: `order-priority-decision.dmn` (in root directory)
+- **Inputs**: orderTotal, customerCategory, deliveryPreference
+- **Output**: orderPriority ("Critical", "High", "Medium", "Standard")
+
+### Lab 3 - Hospital Appointment
+- **BPMN Task**: "Triage Classification (DMN)"
+- **Decision ID**: `triage-decision`
+- **DMN File**: `triage-decision.dmn` (in root directory)
+- **Inputs**: urgencyIndicators, symptomsDescription
+- **Output**: triageCategory ("Routine", "Priority Review", "Urgent Assessment")
+
+## Files to Deploy Together
+
+When deploying to Camunda 8, upload these files together:
+
+**Lab 1:**
+- lab1.bpmn
+- loan-decision.dmn
+
+**Lab 2:**
+- lab2.bpmn
+- order-priority-decision.dmn
+
+**Lab 3:**
+- lab3.bpmn
+- triage-decision.dmn
