@@ -21,7 +21,7 @@
       <bpmn:outgoing>Flow_StockUnavailable</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     
-    <bpmn:sequenceFlow id="Flow_StockAvailable" name="Yes" sourceRef="Gateway_StockCheck" targetRef="Task_CalculatePriority">
+    <bpmn:sequenceFlow id="Flow_StockAvailable" name="Yes" sourceRef="Gateway_StockCheck" targetRef="Task_CalculatePriority" default="true">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=stockAvailable = true</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     
@@ -45,6 +45,7 @@
           <zeebe:input source="noAuth" target="authentication.type" />
           <zeebe:input source="POST" target="method" />
           <zeebe:input source="https://jsonplaceholder.typicode.com/posts" target="url" />
+          <zeebe:input source="={&#10;  &#34;orderId&#34;: orderId,&#10;  &#34;amount&#34;: orderTotal,&#10;  &#34;currency&#34;: &#34;USD&#34;&#10;}" target="body" />
           <zeebe:input source="=false" target="storeResponse" />
           <zeebe:input source="=false" target="followRedirects" />
           <zeebe:input source="=20" target="connectionTimeoutInSeconds" />
@@ -53,7 +54,7 @@
         <zeebe:taskHeaders>
           <zeebe:header key="elementTemplateVersion" value="13" />
           <zeebe:header key="elementTemplateId" value="io.camunda.connectors.HttpJson.v2" />
-          <zeebe:header key="resultExpression" value="={&#10;  myResponseBody: response.body,&#10;  paymentStatus: if response.body.status = &#34;success&#34; then &#34;success&#34; else &#34;failed&#34;&#10;}" />
+          <zeebe:header key="resultExpression" value="={&#10;  myResponseBody: response.body,&#10;  paymentStatus: if response.body.id != null then &#34;success&#34; else &#34;failed&#34;&#10;}" />
           <zeebe:header key="retryBackoff" value="PT0S" />
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
@@ -68,7 +69,7 @@
       <bpmn:outgoing>Flow_PaymentFailed</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     
-    <bpmn:sequenceFlow id="Flow_PaymentSuccess" name="Success" sourceRef="Gateway_PaymentStatus" targetRef="Gateway_HighValue">
+    <bpmn:sequenceFlow id="Flow_PaymentSuccess" name="Success" sourceRef="Gateway_PaymentStatus" targetRef="Gateway_HighValue" default="true">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=paymentStatus = "success"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     
@@ -86,7 +87,7 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=orderTotal &gt;= 1000</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     
-    <bpmn:sequenceFlow id="Flow_NormalOrder" name="No" sourceRef="Gateway_HighValue" targetRef="Task_PrepareFulfilment">
+    <bpmn:sequenceFlow id="Flow_NormalOrder" name="No" sourceRef="Gateway_HighValue" targetRef="Task_PrepareFulfilment" default="true">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=orderTotal &lt; 1000</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     

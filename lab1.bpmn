@@ -28,7 +28,7 @@
         <zeebe:taskHeaders>
           <zeebe:header key="elementTemplateVersion" value="13" />
           <zeebe:header key="elementTemplateId" value="io.camunda.connectors.HttpJson.v2" />
-          <zeebe:header key="resultExpression" value="={&#10;  myResponseBody: response.body&#10;  // Use FEEL to extract values, e.g.,:&#10;  // myUserId: response.body.post.userId&#10;}" />
+          <zeebe:header key="resultExpression" value="={&#10;  myResponseBody: response.body,&#10;  creditScore: if response.body.id != null then 720 else 550&#10;}" />
           <zeebe:header key="retryBackoff" value="PT0S" />
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
@@ -50,7 +50,7 @@
       <bpmn:outgoing>Flow_Rejected</bpmn:outgoing>
       <bpmn:outgoing>Flow_ManualReview</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_Approved" name="Approved" sourceRef="Gateway_Decision" targetRef="Task_ProcessApproval">
+    <bpmn:sequenceFlow id="Flow_Approved" name="Approved" sourceRef="Gateway_Decision" targetRef="Task_ProcessApproval" default="true">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=loanDecision = "Approved"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_Rejected" name="Rejected" sourceRef="Gateway_Decision" targetRef="Task_ProcessRejection">
@@ -72,7 +72,7 @@
       <bpmn:outgoing>Flow_ManualApproved</bpmn:outgoing>
       <bpmn:outgoing>Flow_ManualRejected</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_ManualApproved" name="Approved" sourceRef="Gateway_ManualDecision" targetRef="Task_ProcessApproval">
+    <bpmn:sequenceFlow id="Flow_ManualApproved" name="Approved" sourceRef="Gateway_ManualDecision" targetRef="Task_ProcessApproval" default="true">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=manualDecision = "Approved"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_ManualRejected" name="Rejected" sourceRef="Gateway_ManualDecision" targetRef="Task_ProcessRejection">
