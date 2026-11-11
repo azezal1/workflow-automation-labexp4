@@ -106,13 +106,11 @@
     </bpmn:endEvent>
     <bpmn:serviceTask id="Activity_CheckAvailabilityPriority" name="Check Appointment Availability">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="http" />
-        <zeebe:taskHeaders>
-          <zeebe:header key="url" value="http://localhost:8092/api/slots?preference={{appointmentPreference}}&amp;priority=high" />
-          <zeebe:header key="method" value="GET" />
-        </zeebe:taskHeaders>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" />
         <zeebe:ioMapping>
-          <zeebe:output source="=body.slots" target="availableSlots" />
+          <zeebe:input source="=\"GET\"" target="method" />
+          <zeebe:input source="=\"http://localhost:8092/api/slots?preference=\" + appointmentPreference + \"&amp;priority=high\"" target="url" />
+          <zeebe:output source="=response.body.slots" target="availableSlots" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_PriorityReview</bpmn:incoming>
@@ -145,13 +143,11 @@
     </bpmn:endEvent>
     <bpmn:serviceTask id="Activity_CheckAvailabilityRoutine" name="Check Appointment Availability">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="http" />
-        <zeebe:taskHeaders>
-          <zeebe:header key="url" value="http://localhost:8092/api/slots?preference={{appointmentPreference}}&amp;priority=routine" />
-          <zeebe:header key="method" value="GET" />
-        </zeebe:taskHeaders>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" />
         <zeebe:ioMapping>
-          <zeebe:output source="=body.slots" target="availableSlots" />
+          <zeebe:input source="=\"GET\"" target="method" />
+          <zeebe:input source="=\"http://localhost:8092/api/slots?preference=\" + appointmentPreference + \"&amp;priority=routine\"" target="url" />
+          <zeebe:output source="=response.body.slots" target="availableSlots" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_Routine</bpmn:incoming>
