@@ -44,7 +44,7 @@
         <zeebe:ioMapping>
           <zeebe:input source="noAuth" target="authentication.type" />
           <zeebe:input source="POST" target="method" />
-          <zeebe:input target="url" />
+          <zeebe:input source="https://jsonplaceholder.typicode.com/posts" target="url" />
           <zeebe:input source="=false" target="storeResponse" />
           <zeebe:input source="=false" target="followRedirects" />
           <zeebe:input source="=20" target="connectionTimeoutInSeconds" />
